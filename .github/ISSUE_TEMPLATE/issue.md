@@ -1,6 +1,6 @@
 ---
-name: 'issue'
-about: '이슈'
+name: 'general'
+about: 'general'
 title: ''
 labels: ''
 assignees: ''
