@@ -1,3 +1,4 @@
+import { BEVERAGE_STOCK } from '../constants/beverage.constant.js';
 import { Beverage } from '../entities/beverage.entity.js';
 
 export class BeverageRepository {
@@ -8,17 +9,20 @@ export class BeverageRepository {
     {
       id: 1,
       name: 'coke',
-      fee: 1100,
+      price: 1100,
+      stock: BEVERAGE_STOCK.coke,
     },
     {
       id: 2,
       name: 'water',
-      fee: 1100,
+      price: 600,
+      stock: BEVERAGE_STOCK.water,
     },
     {
       id: 3,
       name: 'coffee',
-      fee: 1100,
+      price: 700,
+      stock: BEVERAGE_STOCK.coffee,
     },
   ];
 

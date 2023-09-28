@@ -18,7 +18,7 @@ export const BEVERAGE_FEE = {
 };
 
 export const BEVERAGE_STOCK = {
-  [BEVERAGE.COKE]: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
-  [BEVERAGE.WATER]: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
-  [BEVERAGE.COFFEE]: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
+  coke: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
+  water: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
+  coffee: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
 };

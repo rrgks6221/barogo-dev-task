@@ -19,6 +19,12 @@ export class Beverage {
 
   /**
    * @requires
+   * @type {number}
+   */
+  price;
+
+  /**
+   * @requires
    * @param {Beverage} beverage
    */
   constructor(beverage) {

@@ -1,8 +1,6 @@
 import { CustomException } from '../../exceptions/custom.exception.js';
 
 export const clientErrorExceptionFilter = (err, req, res, next) => {
-  console.log('-------------');
-  console.log(err);
   if (!err) {
     return next();
   }
