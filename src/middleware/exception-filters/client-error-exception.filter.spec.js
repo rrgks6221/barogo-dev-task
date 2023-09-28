@@ -26,7 +26,7 @@ describe('clientErrorExceptionFilter', () => {
 
   it('err 가 CustomException 인 경우', () => {
     clientErrorExceptionFilter(
-      new CustomException({ status: 200, msg: 'msg' }),
+      new CustomException({ status: 400, msg: 'msg' }),
       mockReq,
       mockRes,
       mockNext
