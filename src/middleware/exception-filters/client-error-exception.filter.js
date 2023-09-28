@@ -1,4 +1,4 @@
-import { CustomError } from '../../exceptions/not-found.exception.js';
+import { CustomException } from '../../exceptions/custom.exception.js';
 
 export const clientErrorExceptionFilter = (err, req, res, next) => {
   console.log('-------------');
@@ -7,7 +7,7 @@ export const clientErrorExceptionFilter = (err, req, res, next) => {
     return next();
   }
 
-  if (!(err instanceof CustomError)) {
+  if (!(err instanceof CustomException)) {
     return next();
   }
 

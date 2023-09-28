@@ -1,4 +1,4 @@
-export class CustomError extends Error {
+export class CustomException extends Error {
   /**
    * @param {{status: number, msg: string}} error
    */
