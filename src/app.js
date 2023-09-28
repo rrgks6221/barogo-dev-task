@@ -1,15 +1,24 @@
-import dotenv from 'dotenv';
-import express from 'express';
+import { config } from 'dotenv';
+import express, { json, urlencoded } from 'express';
+import { clientErrorExceptionFilter } from './middleware/exception-filters/client-error-exception.filter.js';
+import { serverErrorExceptionFilter } from './middleware/exception-filters/server-error-exception.filter.js';
+import drinks from './routes/index.js';
 
-dotenv.config();
+config();
 
 const app = express();
 
 // request body parsing
-app.use(express.json());
+app.use(json());
 
 // urlencoded request body parsing
-app.use(express.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
+
+// routers
+app.use('/api', drinks);
+
+// exception filters
+app.use(clientErrorExceptionFilter, serverErrorExceptionFilter);
 
 const PORT = process.env.PORT;
 
