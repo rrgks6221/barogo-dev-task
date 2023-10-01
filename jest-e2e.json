@@ -1,0 +1,9 @@
+{
+  "moduleFileExtensions": ["js", "json"],
+  "moduleNameMapper": {
+    "^@src/(.*)$": "<rootDir>/../(src|www)/$1"
+  },
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.js$"
+}

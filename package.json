@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/bin/www.js",
     "start:dev": "nodemon --watch src/ src/bin/www.js",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "jest --detectOpenHandles --config jest-e2e.json"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "@babel/preset-env": "^7.22.20",
     "@types/jest": "^29.5.5",
     "babel-jest": "^29.7.0",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
   }
 }
