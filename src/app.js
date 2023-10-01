@@ -20,8 +20,4 @@ app.use('/api', drinks);
 // exception filters
 app.use(clientErrorExceptionFilter, serverErrorExceptionFilter);
 
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
-  console.info(`Start the server on port ${PORT}`);
-});
+export default app;
