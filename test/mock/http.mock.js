@@ -1,6 +1,7 @@
 export const mockReq = {
   path: 'path',
   params: {},
+  body: {},
 };
 
 export const mockRes = {
