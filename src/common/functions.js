@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
 /**
- * @param {*} min
- * @param {*} max
+ * @param {number} min
+ * @param {number} max
  * @returns {number}
  */
 export const createBeverageStock = (min, max) => {

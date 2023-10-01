@@ -18,7 +18,16 @@ export const BEVERAGE_FEE = {
 };
 
 export const BEVERAGE_STOCK = {
-  coke: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
-  water: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
-  coffee: createBeverageStock(INITIAL_BEVERAGE_STOCK.MIN),
+  coke: createBeverageStock(
+    INITIAL_BEVERAGE_STOCK.MIN,
+    INITIAL_BEVERAGE_STOCK.MAX
+  ),
+  water: createBeverageStock(
+    INITIAL_BEVERAGE_STOCK.MIN,
+    INITIAL_BEVERAGE_STOCK.MAX
+  ),
+  coffee: createBeverageStock(
+    INITIAL_BEVERAGE_STOCK.MIN,
+    INITIAL_BEVERAGE_STOCK.MAX
+  ),
 };

@@ -5,7 +5,7 @@ export class BeverageRepository {
   /**
    * @type {Beverage[]}
    */
-  #beverages = [
+  static #beverages = [
     {
       id: 1,
       name: 'coke',
@@ -29,7 +29,7 @@ export class BeverageRepository {
   /**
    * @returns {Beverage[]}
    */
-  findAll() {
+  static findAll() {
     return this.#beverages.map((beverage) => new Beverage(beverage));
   }
 
@@ -37,7 +37,7 @@ export class BeverageRepository {
    * @param {number} id
    * @returns {Beverage | null}
    */
-  findOneById(id) {
+  static findOneById(id) {
     const beverage = this.#beverages.find((beverage) => id === beverage.id);
 
     return beverage ? new Beverage(beverage) : null;

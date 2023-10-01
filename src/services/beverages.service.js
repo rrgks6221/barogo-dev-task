@@ -4,12 +4,8 @@ import { CustomException } from '../exceptions/custom.exception.js';
 import { BeverageRepository } from '../repositories/beverage.repository.js';
 
 export class BeverageService {
-  constructor() {
-    this.repository = new BeverageRepository();
-  }
-
   findAll() {
-    return this.repository.findAll();
+    return BeverageRepository.findAll();
   }
 
   /**
@@ -18,7 +14,7 @@ export class BeverageService {
    * @returns {Beverage}
    */
   findOneByIdOrFail(id) {
-    const beverage = this.repository.findOneById(id);
+    const beverage = BeverageRepository.findOneById(id);
 
     if (!beverage) {
       throw new CustomException({
