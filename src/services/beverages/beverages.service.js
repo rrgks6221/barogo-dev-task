@@ -1,7 +1,7 @@
-import { HTTP_STATUS } from '../constants/http-status.constant.js';
-import { Beverage } from '../entities/beverage.entity.js';
-import { CustomException } from '../exceptions/custom.exception.js';
-import { BeverageRepository } from '../repositories/beverage.repository.js';
+import { HTTP_STATUS } from '../../constants/http-status.constant.js';
+import { Beverage } from '../../entities/beverage.entity.js';
+import { CustomException } from '../../exceptions/custom.exception.js';
+import { BeverageRepository } from '../../repositories/beverage.repository.js';
 
 export class BeverageService {
   findAll() {

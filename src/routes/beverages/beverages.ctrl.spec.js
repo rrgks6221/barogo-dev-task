@@ -1,7 +1,7 @@
 import { mockReq, mockRes } from '../../../test/mock/http.mock';
 import { BEVERAGE_STOCK } from '../../constants/beverage.constant';
 import { Beverage } from '../../entities/beverage.entity.js';
-import { BeverageService } from '../../services/beverages.service';
+import { BeverageService } from '../../services/beverages/beverages.service';
 import beveragesCtrl from './beverages.ctrl.js';
 
 jest.mock('../../services/beverages.service.js');
