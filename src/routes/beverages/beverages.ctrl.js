@@ -1,4 +1,4 @@
-import { BeverageService } from '../../services/beverages.service.js';
+import { BeverageService } from '../../services/beverages/beverages.service.js';
 
 const beveragesCtrl = {};
 
