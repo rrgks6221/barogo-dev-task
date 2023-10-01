@@ -4,13 +4,12 @@ const cashCtrl = {};
 
 cashCtrl.append = (req, res) => {
   const { body } = req;
-  const { amount } = body;
-  console.log(amount);
+  const { cash } = body;
 
   const cashService = new CashService();
-  const cash = cashService.append(amount);
+  const appendedCash = cashService.append(cash);
 
-  return res.status(201).json({ cash });
+  return res.status(201).json({ cash: appendedCash });
 };
 
 export default cashCtrl;
