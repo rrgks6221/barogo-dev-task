@@ -2,10 +2,10 @@ import { CashRepository } from '../../repositories/cash.repository.js';
 
 export class CashService {
   /**
-   * @param {number} amount
+   * @param {number} cash
    */
-  append(amount) {
-    CashRepository.append(amount);
+  append(cash) {
+    CashRepository.append(cash);
 
     return CashRepository.get();
   }
