@@ -4,7 +4,7 @@ import { Beverage } from '../../entities/beverage.entity.js';
 import { BeverageService } from '../../services/beverages/beverages.service';
 import beveragesCtrl from './beverages.ctrl.js';
 
-jest.mock('../../services/beverages.service.js');
+jest.mock('../../services/beverages/beverages.service.js');
 
 describe('beveragesCtrl', () => {
   beforeEach(() => {
