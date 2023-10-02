@@ -1,10 +1,10 @@
-import { BEVERAGE_STOCK } from '../constants/beverage.constant';
-import { Beverage } from '../entities/beverage.entity.js';
-import { CustomException } from '../exceptions/custom.exception';
-import { BeverageRepository } from '../repositories/beverage.repository.js';
+import { BEVERAGE_STOCK } from '../../constants/beverage.constant.js';
+import { Beverage } from '../../entities/beverage.entity.js';
+import { CustomException } from '../../exceptions/custom.exception.js';
+import { BeverageRepository } from '../../repositories/beverage.repository.js';
 import { BeverageService } from './beverages.service.js';
 
-jest.mock('../repositories/beverage.repository.js');
+jest.mock('../../repositories/beverage.repository.js');
 
 describe('beveragesService', () => {
   const beverageService = new BeverageService();
