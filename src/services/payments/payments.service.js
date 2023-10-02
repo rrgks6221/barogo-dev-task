@@ -1,4 +1,4 @@
-import { PAYMENT_STATUS } from '../../constants/payment.constant';
+import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 
 export class PaymentsService {
   static #status = PAYMENT_STATUS.PENDING;
