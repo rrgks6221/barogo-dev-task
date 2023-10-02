@@ -1,4 +1,7 @@
-import { AVAILABLE_CASH } from '../../constants/cash.constant.js';
+import {
+  AVAILABLE_CASH,
+  AVAILABLE_CASH_DESC,
+} from '../../constants/cash.constant.js';
 import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
@@ -45,6 +48,46 @@ export class CashService {
     CashRepository.append(cash);
 
     return CashRepository.get();
+  }
+
+  /**
+   *
+   * @returns {number}
+   */
+  getCash() {
+    const paymentStatus = PaymentsService.getStatus();
+
+    if (paymentStatus === PAYMENT_STATUS.CARD) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '현재 카드결제중입니다.',
+      });
+    }
+
+    const cash = CashRepository.get();
+
+    PaymentsService.setStatus('pending');
+    CashRepository.reset();
+
+    return cash;
+  }
+
+  /**
+   * @param {number} cash
+   * @returns {object}
+   */
+  calculateReturnAmount(cash) {
+    let remainingCash = cash;
+
+    const returnAmount = AVAILABLE_CASH_DESC.reduce((acc, cur) => {
+      acc[cur] = Math.floor(remainingCash / cur);
+
+      remainingCash %= cur;
+
+      return acc;
+    }, {});
+
+    return returnAmount;
   }
 
   /**

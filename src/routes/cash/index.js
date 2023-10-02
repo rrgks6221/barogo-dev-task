@@ -4,6 +4,7 @@ import cashCtrl from './cash.ctrl.js';
 
 const router = Router();
 
+router.get('/', cashCtrl.getCash);
 router.post('/', appendCashBodyPipe, cashCtrl.append);
 
 export default router;
