@@ -19,8 +19,7 @@
 ```bash
 $ git clone https://github.com/rrgks6221/barogo-dev-task
 
-# mac os 기준 복사 명령어
-$ cp .env.sample .env
+$ echo "PORT=3000" > .env
 
 $ npm i
 
