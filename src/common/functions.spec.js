@@ -1,9 +1,9 @@
-import { createBeverageStock, isNil } from './functions.js';
+import { isNil, randomNumber } from './functions.js';
 
 describe('functions', () => {
-  describe('createBeverageStock', () => {
+  describe('randomNumber', () => {
     it('파라미터가 없는 경우', () => {
-      const beverage = createBeverageStock();
+      const beverage = randomNumber();
 
       expect(typeof beverage).toBe('number');
     });
@@ -11,7 +11,7 @@ describe('functions', () => {
     it('파라미터가 있는 경우', () => {
       const min = 10;
       const max = 100;
-      const beverage = createBeverageStock(min, max);
+      const beverage = randomNumber(min, max);
 
       expect(typeof beverage).toBe('number');
       expect(beverage).toBeGreaterThanOrEqual(min);
