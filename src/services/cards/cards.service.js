@@ -1,12 +1,17 @@
+import { isNil } from '../../common/functions.js';
 import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
+import { CardRepository } from '../../repositories/card.repository.js';
+import { PaymentsRepository } from '../../repositories/payments.repository.js';
 import { BankService } from '../bank/bank.service.js';
-import { PaymentsService } from '../payments/payments.service.js';
 
 export class CardsService {
+  /**
+   * @param {number} cardNumber
+   */
   getCardInfo(cardNumber) {
-    const paymentStatus = PaymentsService.getStatus();
+    const paymentStatus = PaymentsRepository.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CASH) {
       throw new CustomException({
@@ -15,9 +20,34 @@ export class CardsService {
       });
     }
 
-    const bankService = new BankService(cardNumber);
-    PaymentsService.setStatus(PAYMENT_STATUS.CARD);
+    PaymentsRepository.setStatus(PAYMENT_STATUS.CARD);
+    CardRepository.setCardNumber(cardNumber);
 
-    return bankService.cognize();
+    return BankService.cognize(cardNumber);
+  }
+
+  /**
+   * @param {number} paymentsAmount
+   */
+  payments(paymentsAmount) {
+    const paymentStatus = PaymentsRepository.getStatus();
+
+    if (paymentStatus !== PAYMENT_STATUS.CARD) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '현재 카드결제중이 아닙니다..',
+      });
+    }
+
+    if (isNil(CardRepository.getCardNumber())) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '인식된 카드가 없습니다.',
+      });
+    }
+
+    const cardInfo = BankService.payments(paymentsAmount);
+
+    return cardInfo;
   }
 }

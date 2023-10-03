@@ -6,14 +6,14 @@ import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
 import { CashRepository } from '../../repositories/cash.repository.js';
-import { PaymentsService } from '../payments/payments.service.js';
+import { PaymentsRepository } from '../../repositories/payments.repository.js';
 
 export class CashService {
   /**
    * @param {number} cash
    */
   increase(cash) {
-    const paymentStatus = PaymentsService.getStatus();
+    const paymentStatus = PaymentsRepository.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CARD) {
       throw new CustomException({
@@ -45,7 +45,7 @@ export class CashService {
       });
     }
 
-    PaymentsService.setStatus(PAYMENT_STATUS.CASH);
+    PaymentsRepository.setStatus(PAYMENT_STATUS.CASH);
     CashRepository.increase(cash);
 
     return CashRepository.get();
@@ -56,7 +56,7 @@ export class CashService {
    * @returns
    */
   decrease(cash) {
-    const paymentStatus = PaymentsService.getStatus();
+    const paymentStatus = PaymentsRepository.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CARD) {
       throw new CustomException({
@@ -68,7 +68,7 @@ export class CashService {
       });
     }
 
-    PaymentsService.setStatus(PAYMENT_STATUS.CASH);
+    PaymentsRepository.setStatus(PAYMENT_STATUS.CASH);
     CashRepository.decrease(cash);
 
     return CashRepository.get();
@@ -79,7 +79,7 @@ export class CashService {
    * @returns {number}
    */
   getCash() {
-    const paymentStatus = PaymentsService.getStatus();
+    const paymentStatus = PaymentsRepository.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CARD) {
       throw new CustomException({
@@ -106,7 +106,7 @@ export class CashService {
       return acc;
     }, {});
 
-    PaymentsService.setStatus(PAYMENT_STATUS.PENDING);
+    PaymentsRepository.setStatus(PAYMENT_STATUS.PENDING);
     CashRepository.reset();
 
     return returnAmount;

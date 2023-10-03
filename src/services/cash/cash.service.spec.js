@@ -1,8 +1,8 @@
 import { CashRepository } from '../../repositories/cash.repository.js';
-import { PaymentsService } from '../payments/payments.service.js';
+import { PaymentsRepository } from '../../repositories/payments.repository.js';
 import { CashService } from './cash.service.js';
 
-jest.mock('../payments/payments.service.js');
+jest.mock('../../repositories/payments.repository.js');
 jest.mock('../../repositories/cash.repository.js');
 
 describe('CashService', () => {
@@ -16,7 +16,7 @@ describe('CashService', () => {
 
   describe('increase', () => {
     it('카드 결제중인 경우', () => {
-      PaymentsService.getStatus.mockReturnValue('card');
+      PaymentsRepository.getStatus.mockReturnValue('card');
 
       expect(() => cashService.increase(500)).toThrowError();
     });
@@ -33,7 +33,7 @@ describe('CashService', () => {
     });
 
     it('현금 추가', () => {
-      PaymentsService.getStatus.mockReturnValue('cash');
+      PaymentsRepository.getStatus.mockReturnValue('cash');
 
       const cash = 500;
 
@@ -46,13 +46,13 @@ describe('CashService', () => {
 
   describe('decrease', () => {
     it('카드 결제중인 경우', () => {
-      PaymentsService.getStatus.mockReturnValue('card');
+      PaymentsRepository.getStatus.mockReturnValue('card');
 
       expect(() => cashService.getCash()).toThrowError();
     });
 
     it('현금 감소', () => {
-      PaymentsService.getStatus.mockReturnValue('cash');
+      PaymentsRepository.getStatus.mockReturnValue('cash');
 
       expect(() => cashService.decrease(300)).not.toThrowError();
     });
@@ -60,13 +60,13 @@ describe('CashService', () => {
 
   describe('getCash', () => {
     it('카드 결제중인 경우', () => {
-      PaymentsService.getStatus.mockReturnValue('card');
+      PaymentsRepository.getStatus.mockReturnValue('card');
 
       expect(() => cashService.getCash()).toThrowError();
     });
 
     it('현금 결제중인 경우', () => {
-      PaymentsService.getStatus.mockReturnValue('cash');
+      PaymentsRepository.getStatus.mockReturnValue('cash');
 
       expect(cashService.getCash()).toBeDefined();
     });
@@ -74,7 +74,7 @@ describe('CashService', () => {
 
   describe('returnCash', () => {
     beforeEach(() => {
-      PaymentsService.getStatus.mockReturnValue('cash');
+      PaymentsRepository.getStatus.mockReturnValue('cash');
     });
 
     it('0원', () => {
