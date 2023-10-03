@@ -1,12 +1,12 @@
 import { CustomException } from '../../exceptions/custom.exception.js';
+import { PaymentsRepository } from '../../repositories/payments.repository.js';
 import { BeverageService } from '../beverages/beverages.service.js';
 import { CashService } from '../cash/cash.service.js';
-import { PaymentsService } from '../payments/payments.service.js';
 import { OrdersService } from './orders.service.js';
 
 jest.mock('../beverages/beverages.service.js');
 jest.mock('../cash/cash.service.js');
-jest.mock('../payments/payments.service.js');
+jest.mock('../../repositories/payments.repository.js');
 
 describe('OrdersService', () => {
   const ordersService = new OrdersService();
@@ -30,7 +30,7 @@ describe('OrdersService', () => {
       BeverageService.prototype.findOneByIdOrFail.mockReturnValue({
         stock: 1,
       });
-      PaymentsService.getStatus.mockReturnValue('pending');
+      PaymentsRepository.getStatus.mockReturnValue('pending');
 
       expect(() => ordersService.orderBeverage(1)).toThrowError(
         CustomException
@@ -45,7 +45,7 @@ describe('OrdersService', () => {
           stock: 1,
           price: beveragePrice,
         });
-        PaymentsService.getStatus.mockReturnValue('cash');
+        PaymentsRepository.getStatus.mockReturnValue('cash');
       });
 
       it('금액이 부족한 경우', () => {

@@ -1,6 +1,6 @@
-import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
+import { PAYMENT_STATUS } from '../constants/payment.constant.js';
 
-export class PaymentsService {
+export class PaymentsRepository {
   static #status = PAYMENT_STATUS.PENDING;
 
   /**
@@ -17,7 +17,7 @@ export class PaymentsService {
     const upperStatus = status.toUpperCase();
 
     if (!PAYMENT_STATUS[upperStatus]) {
-      throw new Error('PaymentsService.updateStatus 허용되지 않은 status');
+      throw new Error('PaymentsRepository.updateStatus 허용되지 않은 status');
     }
 
     this.#status = status;

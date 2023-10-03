@@ -1,9 +1,9 @@
 import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
+import { PaymentsRepository } from '../../repositories/payments.repository.js';
 import { BeverageService } from '../beverages/beverages.service.js';
 import { CashService } from '../cash/cash.service.js';
-import { PaymentsService } from '../payments/payments.service.js';
 
 export class OrdersService {
   /**
@@ -21,7 +21,7 @@ export class OrdersService {
       });
     }
 
-    const paymentStatus = PaymentsService.getStatus();
+    const paymentStatus = PaymentsRepository.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.PENDING) {
       throw new CustomException({

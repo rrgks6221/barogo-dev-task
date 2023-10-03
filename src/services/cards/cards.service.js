@@ -2,12 +2,12 @@ import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
 import { CardRepository } from '../../repositories/card.repository.js';
+import { PaymentsRepository } from '../../repositories/payments.repository.js';
 import { BankService } from '../bank/bank.service.js';
-import { PaymentsService } from '../payments/payments.service.js';
 
 export class CardsService {
   getCardInfo(cardNumber) {
-    const paymentStatus = PaymentsService.getStatus();
+    const paymentStatus = PaymentsRepository.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CASH) {
       throw new CustomException({
@@ -16,7 +16,7 @@ export class CardsService {
       });
     }
 
-    PaymentsService.setStatus(PAYMENT_STATUS.CARD);
+    PaymentsRepository.setStatus(PAYMENT_STATUS.CARD);
     CardRepository.setNumber(cardNumber);
 
     return BankService.cognize();
