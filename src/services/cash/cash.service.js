@@ -51,6 +51,26 @@ export class CashService {
   }
 
   /**
+   * @param {*} cash
+   * @returns
+   */
+  decrease(cash) {
+    const paymentStatus = PaymentsService.getStatus();
+
+    if (paymentStatus === PAYMENT_STATUS.CARD) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '현재 카드결제중입니다.',
+        data: {
+          returnAmount: cash,
+        },
+      });
+    }
+
+    return CashRepository.decrease(cash);
+  }
+
+  /**
    *
    * @returns {number}
    */

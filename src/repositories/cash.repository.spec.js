@@ -11,11 +11,23 @@ describe('cashRepository', () => {
     });
   });
 
-  describe('append', () => {
+  describe('increase', () => {
     it('추가 후 추가된 금액을 반환한다.', () => {
-      const appendCash = 300;
+      const cash = 300;
 
-      expect(CashRepository.increase(appendCash)).toBe(appendCash);
+      expect(CashRepository.increase(cash)).toBe(cash);
+    });
+  });
+
+  describe('decrease', () => {
+    it('현재 금액보다 큰 금액은 에러를 던진다.', () => {
+      expect(() => CashRepository.decrease(100)).toThrowError(Error);
+    });
+
+    it('감소 후 감소된 금액을 반환한다..', () => {
+      CashRepository.increase(500);
+
+      expect(CashRepository.decrease(300)).toBe(200);
     });
   });
 

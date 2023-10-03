@@ -44,6 +44,20 @@ describe('CashService', () => {
     });
   });
 
+  describe('decrease', () => {
+    it('카드 결제중인 경우', () => {
+      PaymentsService.getStatus.mockReturnValue('card');
+
+      expect(() => cashService.getCash()).toThrowError();
+    });
+
+    it('현금 감소', () => {
+      PaymentsService.getStatus.mockReturnValue('cash');
+
+      expect(() => cashService.decrease(300)).not.toThrowError();
+    });
+  });
+
   describe('getCash', () => {
     it('카드 결제중인 경우', () => {
       PaymentsService.getStatus.mockReturnValue('card');
