@@ -1,7 +1,15 @@
 {
   "name": "barogo-dev-task",
   "version": "1.0.0",
-  "description": "## 개요",
+  "description": "바로고 개발과제 자판기",
+  "author": "Seokho Lee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rrgks6221/barogo-dev-task"
+  },
+  "engines": {
+    "node": "18.16.0"
+  },
   "type": "module",
   "scripts": {
     "start": "node src/bin/www.js",
@@ -11,7 +19,6 @@
     "g:res": "node scripts/generate-router.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^8.1.0",
