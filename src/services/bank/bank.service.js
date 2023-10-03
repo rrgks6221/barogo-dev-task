@@ -8,8 +8,8 @@ import { CustomException } from '../../exceptions/custom.exception.js';
  * 카드에 대한 처리를 임의적으로 한다.
  */
 export class BankService {
-  constructor(account) {
-    this.account = account;
+  constructor(cardNumber) {
+    this.cardNumber = cardNumber;
   }
 
   cognize() {
