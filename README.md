@@ -23,6 +23,7 @@ $ echo "PORT=3000" > .env
 
 $ npm i
 
+# 서버 시작 후 localhost:3000 접속하면 화면이 나옵니다.
 $ npm run start
 ```
 
