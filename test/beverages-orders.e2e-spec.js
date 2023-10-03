@@ -48,8 +48,20 @@ describe('beverages/:id/orders (e2e)', () => {
     });
 
     /**
-     * @todo
+     * @todo reset api 만든 후 작성
      */
-    describe.skip('카드 결제인 경우', () => {});
+    describe.skip('카드 결제인 경우', () => {
+      it('카드 결제 성공', async () => {
+        const beverage = await server
+          .get('/api/beverages')
+          .set('Content-Type', 'application/json')[0];
+
+        let cardAmount = 0;
+
+        while (cardAmount > beverage.price) {
+          cardAmount = await server;
+        }
+      });
+    });
   });
 });

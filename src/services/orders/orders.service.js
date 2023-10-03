@@ -3,6 +3,7 @@ import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
 import { PaymentsRepository } from '../../repositories/payments.repository.js';
 import { BeverageService } from '../beverages/beverages.service.js';
+import { CardsService } from '../cards/cards.service.js';
 import { CashService } from '../cash/cash.service.js';
 
 export class OrdersService {
@@ -45,10 +46,10 @@ export class OrdersService {
       cashService.decrease(beverage.price);
     }
 
-    /**
-     * @todo 카드결제
-     */
     if (paymentStatus === PAYMENT_STATUS.CARD) {
+      const cardsService = new CardsService();
+
+      cardsService.payments(beverage.price);
     }
 
     return beveragesService.decreaseStockById(beverageId);

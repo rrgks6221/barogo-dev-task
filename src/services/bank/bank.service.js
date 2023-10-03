@@ -10,7 +10,7 @@ import { CustomException } from '../../exceptions/custom.exception.js';
 export class BankService {
   static #amount = null;
 
-  static cognize(_cardNumber) {
+  static cognize() {
     const isAvailableCard = this.#validateCard();
 
     if (!isAvailableCard) {
@@ -25,8 +25,8 @@ export class BankService {
     };
   }
 
-  static payments(paymentAmount, _cardNumber) {
-    const cardInfo = this.cognize(_cardNumber);
+  static payments(paymentAmount) {
+    const cardInfo = this.cognize();
 
     if (paymentAmount > cardInfo.amount) {
       throw new CustomException({
@@ -37,9 +37,7 @@ export class BankService {
 
     this.#amount -= paymentAmount;
 
-    return {
-      amount: this.cognize(_cardNumber),
-    };
+    return this.cognize();
   }
 
   static reset() {
