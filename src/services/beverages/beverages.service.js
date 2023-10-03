@@ -9,7 +9,6 @@ export class BeverageService {
   }
 
   /**
-   *
    * @param {number} id
    * @returns {Beverage}
    */
@@ -24,5 +23,21 @@ export class BeverageService {
     }
 
     return beverage;
+  }
+
+  /**
+   * @param {number} id
+   */
+  decreaseStockById(id) {
+    const oldBeverage = this.findOneByIdOrFail(id);
+
+    if (oldBeverage.stock === 0) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '재고가 0 입니다.',
+      });
+    }
+
+    return BeverageRepository.decreaseStockById(id);
   }
 }

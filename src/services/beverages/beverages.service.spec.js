@@ -54,4 +54,24 @@ describe('beveragesService', () => {
       );
     });
   });
+
+  describe('decreaseStockById', () => {
+    it('재고가 0인 음료 업데이트 시', () => {
+      BeverageRepository.findOneById.mockReturnValue({
+        stock: 0,
+      });
+
+      expect(() => beverageService.decreaseStockById(1)).toThrowError(
+        CustomException
+      );
+    });
+
+    it('재고가 0 이상인 음료 업데이트 시', () => {
+      BeverageRepository.findOneById.mockReturnValue({
+        stock: 1,
+      });
+
+      expect(() => beverageService.decreaseStockById(1)).not.toThrowError();
+    });
+  });
 });
