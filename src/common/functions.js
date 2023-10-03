@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
  * @param {number} max
  * @returns {number}
  */
-export const createBeverageStock = (min, max) => {
+export const randomNumber = (min, max) => {
   return faker.number.int({ min, max });
 };
 

@@ -1,4 +1,4 @@
-import { createBeverageStock } from '../common/functions.js';
+import { randomNumber } from '../common/functions.js';
 
 const INITIAL_BEVERAGE_STOCK = {
   MIN: 10,
@@ -18,16 +18,7 @@ export const BEVERAGE_FEE = {
 };
 
 export const BEVERAGE_STOCK = {
-  coke: createBeverageStock(
-    INITIAL_BEVERAGE_STOCK.MIN,
-    INITIAL_BEVERAGE_STOCK.MAX
-  ),
-  water: createBeverageStock(
-    INITIAL_BEVERAGE_STOCK.MIN,
-    INITIAL_BEVERAGE_STOCK.MAX
-  ),
-  coffee: createBeverageStock(
-    INITIAL_BEVERAGE_STOCK.MIN,
-    INITIAL_BEVERAGE_STOCK.MAX
-  ),
+  coke: randomNumber(INITIAL_BEVERAGE_STOCK.MIN, INITIAL_BEVERAGE_STOCK.MAX),
+  water: randomNumber(INITIAL_BEVERAGE_STOCK.MIN, INITIAL_BEVERAGE_STOCK.MAX),
+  coffee: randomNumber(INITIAL_BEVERAGE_STOCK.MIN, INITIAL_BEVERAGE_STOCK.MAX),
 };
