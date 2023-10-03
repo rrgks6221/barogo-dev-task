@@ -58,17 +58,16 @@ export class CashService {
   decrease(cash) {
     const paymentStatus = PaymentsRepository.getStatus();
 
-    if (paymentStatus === PAYMENT_STATUS.CARD) {
+    if (paymentStatus !== PAYMENT_STATUS.CASH) {
       throw new CustomException({
         status: HTTP_STATUS.BAD_REQUEST,
-        msg: '현재 카드결제중입니다.',
+        msg: '현금 결제중이 아닙니다.',
         data: {
           returnAmount: cash,
         },
       });
     }
 
-    PaymentsRepository.setStatus(PAYMENT_STATUS.CASH);
     CashRepository.decrease(cash);
 
     return CashRepository.get();
@@ -81,10 +80,10 @@ export class CashService {
   getCash() {
     const paymentStatus = PaymentsRepository.getStatus();
 
-    if (paymentStatus === PAYMENT_STATUS.CARD) {
+    if (paymentStatus !== PAYMENT_STATUS.CASH) {
       throw new CustomException({
         status: HTTP_STATUS.BAD_REQUEST,
-        msg: '현재 카드결제중입니다.',
+        msg: '현금 결제중이 아닙니다.',
       });
     }
 

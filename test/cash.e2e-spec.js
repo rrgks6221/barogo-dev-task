@@ -13,7 +13,11 @@ describe('cash (e2e)', () => {
       await server
         .post('/api/cash')
         .set('Content-Type', 'application/json')
-        .send({ cash: 10500 });
+        .send({ cash: 10000 });
+      await server
+        .post('/api/cash')
+        .set('Content-Type', 'application/json')
+        .send({ cash: 500 });
 
       const response = await server
         .get('/api/cash')
@@ -21,7 +25,7 @@ describe('cash (e2e)', () => {
 
       expect(response.statusCode).toBe(200);
       expect(JSON.parse(response.text)).toEqual({
-        returnAmount: { 100: 0, 500: 0, 1000: 0, 5000: 0, 10000: 0 },
+        returnAmount: { 100: 0, 500: 1, 1000: 0, 5000: 0, 10000: 1 },
       });
     });
   });
