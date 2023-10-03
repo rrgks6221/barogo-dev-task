@@ -8,6 +8,74 @@
 
 - [사용자 관점 플로우](./DOCUMENTS/MECHANISM.png)
 - [개발 진행 전 요구사항 정의](./DOCUMENTS/REQUIREMENTS_DEFINITION.md)
+- 간단한 api spec
+  - 각 router index.js 에 주석으로 표현
+  - [example](./src/routes/beverages/index.js)
+
+## Usage
+
+### Server Starting
+
+```bash
+$ git clone https://github.com/rrgks6221/barogo-dev-task
+
+# mac os 기준 복사 명령어
+$ cp .env.sample .env
+
+$ npm i
+
+$ npm run start
+```
+
+### Script
+
+```bash
+# server start
+$ npm run start
+
+# server start dev
+$ npm run start:dev
+
+# unit test
+$ npm run test
+
+# e2e test
+$ npm run test:e2e
+
+# api skeleton code generator (controller, service)
+$ npm run g:res -- -p "example"
+```
+
+## Directory Structure
+
+```bash
+.
+├── DOCUMENTS # document directory
+├── scripts # script directory
+├── src
+│   ├── app.js # server config file
+│   ├── bin
+│   │   └── www.js # server starting file
+│   ├── client # client code directory
+│   │   ├── static # static directory
+│   │   │   └── js
+│   │   │       ├── functions.js
+│   │   │       └── root.js
+│   │   └── views # view directory
+│   │       ├── index.js
+│   │       └── root.ejs
+│   ├── common # common function directory
+│   ├── constants # constant directory
+│   ├── entities # entity directory
+│   ├── exceptions # exception directory
+│   ├── middleware # middleware directory
+│   │   ├── exception-filters # exception filter directory
+│   │   └── pipes # pipe directory
+│   ├── repositories # repository directory
+│   ├── routes # router directory
+│   └── services # service directory
+└── test # e2e test directory
+```
 
 ## Branch Strategy
 
