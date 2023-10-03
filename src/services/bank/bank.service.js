@@ -1,4 +1,4 @@
-import { randomNumber } from '../../common/functions.js';
+import { isNil, randomNumber } from '../../common/functions.js';
 import { CARD_BALANCE } from '../../constants/bank.constant.js';
 import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
@@ -8,11 +8,9 @@ import { CustomException } from '../../exceptions/custom.exception.js';
  * 카드에 대한 처리를 임의적으로 한다.
  */
 export class BankService {
-  constructor(cardNumber) {
-    this.cardNumber = cardNumber;
-  }
+  static #amount = null;
 
-  cognize() {
+  static cognize(_cardNumber) {
     const isAvailableCard = this.#validateCard();
 
     if (!isAvailableCard) {
@@ -23,11 +21,47 @@ export class BankService {
     }
 
     return {
-      amount: randomNumber(CARD_BALANCE.MIN, CARD_BALANCE.MAX),
+      amount: this.#getAmount(),
     };
   }
 
-  #validateCard() {
+  static payments(paymentAmount, _cardNumber) {
+    const cardInfo = this.cognize(_cardNumber);
+
+    if (paymentAmount > cardInfo.amount) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '금액이 부족합니다.',
+      });
+    }
+
+    this.#amount -= paymentAmount;
+
+    return {
+      amount: this.cognize(_cardNumber),
+    };
+  }
+
+  static reset() {
+    this.#amount = null;
+  }
+
+  /**
+   * @returns {number}
+   */
+  static #getAmount() {
+    if (isNil(this.#amount)) {
+      this.#setAmount();
+    }
+
+    return this.#amount;
+  }
+
+  static #setAmount() {
+    this.#amount = randomNumber(CARD_BALANCE.MIN, CARD_BALANCE.MAX);
+  }
+
+  static #validateCard() {
     // 불량 여부
     // 항상 불량이 아니라고 가정한다.
     const isBad = false;

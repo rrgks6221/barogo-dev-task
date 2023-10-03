@@ -16,10 +16,9 @@ export class CardsService {
       });
     }
 
-    const bankService = new BankService(cardNumber);
     PaymentsService.setStatus(PAYMENT_STATUS.CARD);
     CardRepository.setNumber(cardNumber);
 
-    return bankService.cognize();
+    return BankService.cognize();
   }
 }
