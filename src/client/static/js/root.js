@@ -6,7 +6,7 @@ const initResetTime = () => {
   resetTime = 10;
 };
 
-setInterval(() => {
+setInterval(async () => {
   resetTime -= 1;
 
   const resetTimeEl = document.getElementById('resetTime');
@@ -20,9 +20,14 @@ setInterval(() => {
   initResetTime();
 }, 1000);
 
-const setCurrentStatus = async () => {
+const getCurrentStatus = async () => {
   const response = await myAxios('api/payment-status');
-  const { paymentStatus } = response.body;
+
+  return response.body.paymentStatus;
+};
+
+const setCurrentStatus = async () => {
+  const paymentStatus = await getCurrentStatus();
 
   const currentAmountEl = document.getElementById('currentStatus');
 
@@ -170,13 +175,32 @@ const clickCardCognize = () => {
 };
 
 const reset = async () => {
+  let result = '';
+
+  const currentStatus = await getCurrentStatus();
+
+  if (currentStatus === 'card') {
+    result = '카드와의 연결이 제거되었습니다.';
+  } else if (currentStatus === 'cash') {
+    const returnCashInputResponse = await myAxios('api/cash');
+
+    result = `현금이 반환됐습니다.  
+    (${Object.entries(returnCashInputResponse.body.returnAmount)
+      .map(([unit, count]) => {
+        return `${unit}: ${count}개`;
+      })
+      .join(', ')})`;
+  } else {
+    result = '결과가 여기에 표시됩니다.';
+  }
+
   await myAxios('api/reset', {
     method: 'POST',
   });
 
   setCurrentAmount();
   setCurrentStatus();
-  setResult('결과가 여기에 표시됩니다.');
+  setResult(result);
   initResetTime();
 };
 
