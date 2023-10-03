@@ -50,17 +50,69 @@ describe('beverages/:id/orders (e2e)', () => {
     /**
      * @todo reset api 만든 후 작성
      */
-    describe.skip('카드 결제인 경우', () => {
+    describe('카드 결제인 경우', () => {
+      it('잔액 부족으로 카드결제 실패', async () => {
+        const beverageResponse = await server
+          .get('/api/beverages/1')
+          .set('Content-Type', 'application/json');
+
+        const beverage = JSON.parse(beverageResponse.text);
+
+        let cardAmount = Infinity;
+
+        while (1) {
+          await server
+            .post('/api/reset')
+            .set('Content-Type', 'application/json');
+
+          const cardInfoResponse = await server
+            .get('/api/cards/123')
+            .set('Content-Type', 'application/json');
+
+          cardAmount = JSON.parse(cardInfoResponse.text).amount;
+
+          if (cardAmount < beverage.price) {
+            break;
+          }
+        }
+
+        const response = await server
+          .post('/api/beverages/1/orders')
+          .set('Content-Type', 'application/json');
+
+        expect(response.statusCode).toBe(400);
+      });
+
       it('카드 결제 성공', async () => {
-        const beverage = await server
-          .get('/api/beverages')
-          .set('Content-Type', 'application/json')[0];
+        const beverageResponse = await server
+          .get('/api/beverages/1')
+          .set('Content-Type', 'application/json');
+
+        const beverage = JSON.parse(beverageResponse.text);
 
         let cardAmount = 0;
 
-        while (cardAmount > beverage.price) {
-          cardAmount = await server;
+        while (1) {
+          await server
+            .post('/api/reset')
+            .set('Content-Type', 'application/json');
+
+          const cardInfoResponse = await server
+            .get('/api/cards/123')
+            .set('Content-Type', 'application/json');
+
+          cardAmount = JSON.parse(cardInfoResponse.text).amount;
+
+          if (cardAmount >= beverage.price) {
+            break;
+          }
         }
+
+        const response = await server
+          .post('/api/beverages/1/orders')
+          .set('Content-Type', 'application/json');
+
+        expect(response.statusCode).toBe(204);
       });
     });
   });
