@@ -12,7 +12,7 @@ export class CashService {
   /**
    * @param {number} cash
    */
-  append(cash) {
+  increase(cash) {
     const paymentStatus = PaymentsService.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CARD) {
@@ -45,7 +45,31 @@ export class CashService {
       });
     }
 
-    CashRepository.append(cash);
+    PaymentsService.setStatus(PAYMENT_STATUS.CASH);
+    CashRepository.increase(cash);
+
+    return CashRepository.get();
+  }
+
+  /**
+   * @param {*} cash
+   * @returns
+   */
+  decrease(cash) {
+    const paymentStatus = PaymentsService.getStatus();
+
+    if (paymentStatus === PAYMENT_STATUS.CARD) {
+      throw new CustomException({
+        status: HTTP_STATUS.BAD_REQUEST,
+        msg: '현재 카드결제중입니다.',
+        data: {
+          returnAmount: cash,
+        },
+      });
+    }
+
+    PaymentsService.setStatus(PAYMENT_STATUS.CASH);
+    CashRepository.decrease(cash);
 
     return CashRepository.get();
   }
@@ -64,20 +88,15 @@ export class CashService {
       });
     }
 
-    const cash = CashRepository.get();
-
-    PaymentsService.setStatus('pending');
-    CashRepository.reset();
-
-    return cash;
+    return CashRepository.get();
   }
 
   /**
    * @param {number} cash
    * @returns {object}
    */
-  calculateReturnAmount(cash) {
-    let remainingCash = cash;
+  returnCash() {
+    let remainingCash = this.getCash();
 
     const returnAmount = AVAILABLE_CASH_DESC.reduce((acc, cur) => {
       acc[cur] = Math.floor(remainingCash / cur);
@@ -86,6 +105,9 @@ export class CashService {
 
       return acc;
     }, {});
+
+    PaymentsService.setStatus(PAYMENT_STATUS.PENDING);
+    CashRepository.reset();
 
     return returnAmount;
   }

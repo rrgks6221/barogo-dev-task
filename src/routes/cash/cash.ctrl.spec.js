@@ -16,7 +16,7 @@ describe('cashCtrl', () => {
 
   describe('append', () => {
     it('response 201', () => {
-      CashService.prototype.append.mockReturnValue(300);
+      CashService.prototype.increase.mockReturnValue(300);
 
       cashCtrl.append(mockReq, mockRes);
 
@@ -35,7 +35,7 @@ describe('cashCtrl', () => {
         10000: 0,
       };
       CashService.prototype.getCash.mockReturnValue(500);
-      CashService.prototype.calculateReturnAmount.mockReturnValue(returnAmount);
+      CashService.prototype.returnCash.mockReturnValue(returnAmount);
 
       cashCtrl.getCash(mockReq, mockRes);
 

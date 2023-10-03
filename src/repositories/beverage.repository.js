@@ -42,4 +42,26 @@ export class BeverageRepository {
 
     return beverage ? new Beverage(beverage) : null;
   }
+
+  /**
+   * @param {number} id
+   * @returns {Beverage}
+   */
+  static decreaseStockById(id) {
+    const oldBeverage = this.findOneById(id);
+
+    if (!oldBeverage) {
+      throw new Error(
+        `${this.name}.${this.decreaseStockById.name} 존재하지 않는 beverage update 에러`
+      );
+    }
+
+    const newBeverage = this.#beverages.find((beverage) => {
+      return beverage.id === id;
+    });
+
+    newBeverage.stock -= 1;
+
+    return this.findOneById(id);
+  }
 }
