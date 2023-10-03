@@ -1,8 +1,8 @@
 import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
-import { CustomException } from '../../exceptions/custom.exception';
+import { CustomException } from '../../exceptions/custom.exception.js';
 import { BeverageService } from '../beverages/beverages.service.js';
-import { CashService } from '../cash/cash.service';
+import { CashService } from '../cash/cash.service.js';
 import { PaymentsService } from '../payments/payments.service.js';
 
 export class OrdersService {

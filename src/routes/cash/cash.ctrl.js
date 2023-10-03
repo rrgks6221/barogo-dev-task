@@ -6,7 +6,7 @@ cashCtrl.getCash = (_req, res) => {
   const cashService = new CashService();
 
   const cash = cashService.getCash();
-  const returnAmount = cashService.calculateReturnAmount(cash);
+  const returnAmount = cashService.returnCash(cash);
 
   return res.status(200).json({ returnAmount });
 };

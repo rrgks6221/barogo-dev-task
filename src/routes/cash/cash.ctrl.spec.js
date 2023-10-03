@@ -35,7 +35,7 @@ describe('cashCtrl', () => {
         10000: 0,
       };
       CashService.prototype.getCash.mockReturnValue(500);
-      CashService.prototype.calculateReturnAmount.mockReturnValue(returnAmount);
+      CashService.prototype.returnCash.mockReturnValue(returnAmount);
 
       cashCtrl.getCash(mockReq, mockRes);
 

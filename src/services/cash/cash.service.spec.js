@@ -69,14 +69,18 @@ describe('CashService', () => {
       PaymentsService.getStatus.mockReturnValue('cash');
 
       expect(cashService.getCash()).toBeDefined();
-      expect(PaymentsService.setStatus).toBeCalledWith('pending');
-      expect(CashRepository.reset).toBeCalled();
     });
   });
 
-  describe('calculateReturnAmount', () => {
+  describe('returnCash', () => {
+    beforeEach(() => {
+      PaymentsService.getStatus.mockReturnValue('cash');
+    });
+
     it('0원', () => {
-      expect(cashService.calculateReturnAmount(0)).toEqual({
+      CashRepository.get.mockReturnValue(0);
+
+      expect(cashService.returnCash()).toEqual({
         100: 0,
         500: 0,
         1000: 0,
@@ -86,7 +90,9 @@ describe('CashService', () => {
     });
 
     it('100원', () => {
-      expect(cashService.calculateReturnAmount(100)).toEqual({
+      CashRepository.get.mockReturnValue(100);
+
+      expect(cashService.returnCash()).toEqual({
         100: 1,
         500: 0,
         1000: 0,
@@ -96,7 +102,9 @@ describe('CashService', () => {
     });
 
     it('500원', () => {
-      expect(cashService.calculateReturnAmount(500)).toEqual({
+      CashRepository.get.mockReturnValue(500);
+
+      expect(cashService.returnCash()).toEqual({
         100: 0,
         500: 1,
         1000: 0,
@@ -106,7 +114,9 @@ describe('CashService', () => {
     });
 
     it('1600원', () => {
-      expect(cashService.calculateReturnAmount(1600)).toEqual({
+      CashRepository.get.mockReturnValue(1600);
+
+      expect(cashService.returnCash()).toEqual({
         100: 1,
         500: 1,
         1000: 1,
@@ -116,7 +126,9 @@ describe('CashService', () => {
     });
 
     it('10000원', () => {
-      expect(cashService.calculateReturnAmount(10000)).toEqual({
+      CashRepository.get.mockReturnValue(10000);
+
+      expect(cashService.returnCash()).toEqual({
         100: 0,
         500: 0,
         1000: 0,
@@ -126,7 +138,9 @@ describe('CashService', () => {
     });
 
     it('10100원', () => {
-      expect(cashService.calculateReturnAmount(10100)).toEqual({
+      CashRepository.get.mockReturnValue(10100);
+
+      expect(cashService.returnCash()).toEqual({
         100: 1,
         500: 0,
         1000: 0,
@@ -136,7 +150,9 @@ describe('CashService', () => {
     });
 
     it('16600원', () => {
-      expect(cashService.calculateReturnAmount(16600)).toEqual({
+      CashRepository.get.mockReturnValue(16600);
+
+      expect(cashService.returnCash()).toEqual({
         100: 1,
         500: 1,
         1000: 1,
@@ -146,10 +162,12 @@ describe('CashService', () => {
     });
 
     /**
-     * 발생하면 안되는 상황이지만 테스팅
+     * 발생하면 안되는 경우지만 테스팅을 위해 작성
      */
     it('1원', () => {
-      expect(cashService.calculateReturnAmount(1)).toEqual({
+      CashRepository.get.mockReturnValue(1);
+
+      expect(cashService.returnCash()).toEqual({
         100: 0,
         500: 0,
         1000: 0,
