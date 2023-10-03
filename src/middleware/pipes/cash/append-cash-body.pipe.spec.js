@@ -32,4 +32,19 @@ describe('appendCashBodyPipe', () => {
       CustomException
     );
   });
+
+  it('cash 가 string 타입 정수형인 경우', () => {
+    req.body.cash = '1';
+
+    expect(() => appendCashBodyPipe(req, mockRes, mockNext)).toThrowError(
+      CustomException
+    );
+  });
+
+  it('cash 가 number 타입 정수형인 경우', () => {
+    req.body.cash = 1;
+
+    expect(() => appendCashBodyPipe(req, mockRes, mockNext)).not.toThrowError();
+    expect(mockNext).toBeCalled();
+  });
 });

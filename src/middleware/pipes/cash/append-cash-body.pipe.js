@@ -9,14 +9,21 @@ export const appendCashBodyPipe = (req, _res, next) => {
   if (isNil(cash)) {
     throw new CustomException({
       status: HTTP_STATUS.BAD_REQUEST,
-      msg: 'cash 필수값입니다.',
+      msg: 'cash는 필수값입니다.',
     });
   }
 
-  if (!Number.isInteger(Number(cash))) {
+  if (typeof cash !== 'number') {
     throw new CustomException({
       status: HTTP_STATUS.BAD_REQUEST,
-      msg: 'cash 정수형이어야합니다.',
+      msg: 'cash는 정수형이어야합니다.',
+    });
+  }
+
+  if (!Number.isInteger(cash)) {
+    throw new CustomException({
+      status: HTTP_STATUS.BAD_REQUEST,
+      msg: 'cash는 정수형이어야합니다.',
     });
   }
 
