@@ -1,7 +1,9 @@
 import { faker } from '@faker-js/faker';
+import { CardRepository } from '../../repositories/card.repository.js';
 import { PaymentsService } from '../payments/payments.service.js';
 import { CardsService } from './cards.service.js';
 
+jest.mock('../../repositories/card.repository.js');
 jest.mock('../payments/payments.service.js');
 
 describe('CardsService', () => {
@@ -21,12 +23,13 @@ describe('CardsService', () => {
     it('카드 조회', () => {
       PaymentsService.getStatus.mockReturnValue('card');
 
-      expect(
-        cardsService.getCardInfo(faker.finance.creditCardNumber())
-      ).toMatchObject({
+      const cardNumber = faker.finance.creditCardNumber();
+
+      expect(cardsService.getCardInfo(cardNumber)).toMatchObject({
         amount: expect.anything(),
       });
       expect(PaymentsService.setStatus).toBeCalledWith('card');
+      expect(CardRepository.setNumber).toBeCalledWith(cardNumber);
     });
   });
 });

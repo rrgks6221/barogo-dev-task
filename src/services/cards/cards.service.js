@@ -1,6 +1,7 @@
 import { HTTP_STATUS } from '../../constants/http-status.constant.js';
 import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
 import { CustomException } from '../../exceptions/custom.exception.js';
+import { CardRepository } from '../../repositories/card.repository.js';
 import { BankService } from '../bank/bank.service.js';
 import { PaymentsService } from '../payments/payments.service.js';
 
@@ -17,6 +18,7 @@ export class CardsService {
 
     const bankService = new BankService(cardNumber);
     PaymentsService.setStatus(PAYMENT_STATUS.CARD);
+    CardRepository.setNumber(cardNumber);
 
     return bankService.cognize();
   }
