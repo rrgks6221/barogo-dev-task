@@ -15,13 +15,13 @@ describe('cashRepository', () => {
     it('추가 후 추가된 금액을 반환한다.', () => {
       const appendCash = 300;
 
-      expect(CashRepository.append(appendCash)).toBe(appendCash);
+      expect(CashRepository.increase(appendCash)).toBe(appendCash);
     });
   });
 
   describe('reset', () => {
     it('reset', () => {
-      CashRepository.append(300);
+      CashRepository.increase(300);
 
       expect(CashRepository.get()).toBe(300);
 

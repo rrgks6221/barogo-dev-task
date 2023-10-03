@@ -12,7 +12,7 @@ export class CashService {
   /**
    * @param {number} cash
    */
-  append(cash) {
+  increase(cash) {
     const paymentStatus = PaymentsService.getStatus();
 
     if (paymentStatus === PAYMENT_STATUS.CARD) {
@@ -45,7 +45,7 @@ export class CashService {
       });
     }
 
-    CashRepository.append(cash);
+    CashRepository.increase(cash);
 
     return CashRepository.get();
   }

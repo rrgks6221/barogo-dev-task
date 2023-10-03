@@ -16,7 +16,7 @@ cashCtrl.append = (req, res) => {
   const { cash } = body;
 
   const cashService = new CashService();
-  const appendedCash = cashService.append(cash);
+  const appendedCash = cashService.increase(cash);
 
   return res.status(201).json({ cash: appendedCash });
 };

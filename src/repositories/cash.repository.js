@@ -8,7 +8,7 @@ export class CashRepository {
   /**
    * @param {number} amount
    */
-  static append(amount) {
+  static increase(amount) {
     this.#cash += amount;
 
     return this.#cash;
