@@ -1,8 +1,8 @@
-import { HTTP_STATUS } from '../../constants/http-status.constant';
-import { PAYMENT_STATUS } from '../../constants/payment.constant';
-import { CustomException } from '../../exceptions/custom.exception';
-import { BankService } from '../bank/bank.service';
-import { PaymentsService } from '../payments/payments.service';
+import { HTTP_STATUS } from '../../constants/http-status.constant.js';
+import { PAYMENT_STATUS } from '../../constants/payment.constant.js';
+import { CustomException } from '../../exceptions/custom.exception.js';
+import { BankService } from '../bank/bank.service.js';
+import { PaymentsService } from '../payments/payments.service.js';
 
 export class CardsService {
   getCardInfo(cardNumber) {
